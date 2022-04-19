@@ -46,3 +46,6 @@ Then install the project dependencies with<br>
 ```pip install -r requirements.txt```<br><br>
 And run your server with<br>
 ```python manage.py runserver```
+
+## Note
+If you want the payment with card to work, you should enter tour secret key from Qiwi P2P api to the .env file. Also if you want 

@@ -36,16 +36,28 @@ Online shop written on Django
 <li>Can add and remove the baners, which will be displayed in the Shop page.</li>
 
 ## 📥 Instalation
-```pip install virtualenv```<br>
-```virtualenv env```
+```python
+pip install virtualenv
+```
+```python
+virtualenv env
+```
 ### For Windows
-```env\scripts\activate```
+```python
+env\scripts\activate
+```
 ### For Mac/Linux
-```source env/bin/activate```<br><br>
+```python
+source env/bin/activate
+```
 Then install the project dependencies with<br>
-```pip install -r requirements.txt```<br><br>
+```python
+pip install -r requirements.txt
+```
 And run your server with<br>
-```python manage.py runserver```
+```python
+python manage.py runserver
+```
 
 ## Note
 If you want the payment with card to work, you should enter tour secret key from Qiwi P2P api to the .env file. Also if you want the customer to receive an email,

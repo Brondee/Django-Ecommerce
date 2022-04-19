@@ -29,7 +29,7 @@ Online shop written on Django
 <li>Can leave a review.</li>
 <li>Can pay with a payment card.</li>
 <li>Can search for a product.</li>
-<li>Will receive an email with the order's info</li>
+<li>Will receive an email with the order's info after the successful purchase.</li>
 
 ### Admin
 <li>Can add, edit, remove products using the Admin panel.</li>

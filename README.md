@@ -1,5 +1,5 @@
 # 👾 Django Ecommerce Website
-The online shop written on Django
+Online shop written on Django
 ## 🏠 Home page
 ![main_page](https://user-images.githubusercontent.com/99086730/164073962-f18b7276-5866-4d92-9775-178832280df1.png)
 
@@ -48,4 +48,5 @@ And run your server with<br>
 ```python manage.py runserver```
 
 ## Note
-If you want the payment with card to work, you should enter tour secret key from Qiwi P2P api to the .env file. Also if you want 
+If you want the payment with card to work, you should enter tour secret key from Qiwi P2P api to the .env file. Also if you want the customer to receive an email,
+you should enter your email and its password to .env file.

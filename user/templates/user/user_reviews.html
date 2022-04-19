@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Заказы{% endblock %}
+
+{% block content %}
+    <section class = "user_reviews_section">
+        <div class = "wrap reviews_wrap">
+            {% if is_empty == False %}
+                <h1 class = "user_reviews_title">Мои отзывы:</h1>
+                <div class = "user_reviews_container">
+                    {% for review in reviews %}
+                        <div class = "user_review">
+                            <div class = "username_date_container">
+                                {% for game in games_info %}
+                                    {% if review.product_id == game.id %}
+                                        <p class = "user_review_name">Отзыв к игре <a class = "user_review_name_pink" href = "/product/{{ game.id }}">{{ game.game_name }}</a></p>
+                                    {% endif %}
+                                {% endfor %}
+                                <p class = "user_review_date">{{ review.date }}</p>
+                            </div>
+                            <p class = "user_review_text">{{ review.text }}</p>
+                        </div>
+                    {% endfor %}
+                    <div class = "load_more_container">
+                        <div class = "user_reviews_load_more_btn">
+                            <p>Загрузить еще</p>
+                        </div>
+                    </div>
+                </div>
+            {% elif is_empty == True %}
+                <h1 class = "user_reviews_title">Вы еще не оставили ни одного отзыва</h1>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

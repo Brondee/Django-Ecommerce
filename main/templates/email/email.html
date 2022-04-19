@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email - Borent</title>
+    <style type = "text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap');
+        body{
+            margin: 0;
+            background-color: #FFFF;
+        }
+        table{
+            border-spacing: 0;
+        }
+        td{
+            padding: 0;
+        }
+        img{
+            border: 0;
+        }
+        .wrapper{
+            width: 100%;
+            table-layout: fixed;
+        }
+        .main{
+            margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 400;
+            color: #000;
+        }
+        .header{
+            padding-top: 50px;
+            margin: 0 auto;
+        }
+        .logo{
+            font-size: 30px;
+            text-decoration: none;
+            color: #000;
+        }
+        .title{
+            font-size: 45px; 
+        }
+        .order_items{
+            width: 90%;
+            background: #FFFFFF;
+            border: 5px solid #000000;
+            border-radius: 16px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+        .order_text{
+            text-align: left;
+            font-size: 25px;
+            margin: 15px 0 15px;
+        }
+        .pink_text{
+            color: #F0C3D2;
+        }
+        .hor_line_blue{
+            width: 80%;
+            max-width: 300px;
+            height: 4px;
+            background: #F0F7FF;
+            border-radius: 72px;
+            margin: 20px auto;
+        }
+        .total_price{
+            font-size: 35px;
+            margin: 10px 0;
+        }
+        .adress{
+            width: 80%;
+            font-size: 25px;
+            text-align: left;
+            margin: 50px 0 0;
+            padding-left: 10%;
+        }
+        .social{
+            width: 80%;
+            margin: 50px auto 0;
+            background: #FFFFFF;
+            padding: 25px 0;
+        }
+        .social img{
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <center class = "wrapper">
+        <table class = "main" width="100%">
+            <tr>
+                <td text-align = "center">
+                    <table class = "header">
+                        <tr>
+                            <td class = "logo_name">
+                                <a href="https://hobbygames.ru/kolt-superjekspress" class = "logo"><img src="http://127.0.0.1:8000/main/static/img/logo_name.png" alt="Logo" title = "Borent.ru">Borent</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style = "text-align:center">
+                    <p class = "title">Ваш заказ:</p>
+                </td>
+            </tr>
+            <tr class = "order_info">
+                <td style = "text-align:center">
+                    <table class = "order_items">
+                        {% for order_item in order_items_info %}
+                            <tr>
+                                <td>
+                                    <p class = "order_text">{{ order_item }}</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>
+                                <p class = "hor_line_blue"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class = "order_text"><span class = "pink_text">Оплата: </span>{{ payment_method }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class = "order_text"><span class = "pink_text">Метод получения заказа: </span>{{ get_method }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class = "hor_line_blue"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class = "total_price">{{ total_price }}</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style = "text-align:center">
+                    <p class = "adress">Адрес самовывоза: Ул. Красная 5, Краснодар</p>
+                </td>
+            </tr>
+            <tr>
+                <td style = "text-align:center">
+                    <table class = "social">
+                        <tr>
+                            <td>
+                                <a href="#"><img src="D:\websitedj\boardgames_shop\main\static\icons\telegram.svg" alt="telegram" title = "telegram"></a>
+                            </td>
+                            <td>
+                                <a href="#"><img src="D:\websitedj\boardgames_shop\main\static\icons\vk.svg" alt="vk" title = "vk"></a>
+                            </td>
+                            <td>
+                                <a href="#"><img src="D:\websitedj\boardgames_shop\main\static\icons\instagram.svg" alt="instagram" title = "instagram"></a>
+                            </td>
+                            <td>
+                                <a href="#"><img src="D:\websitedj\boardgames_shop\main\static\icons\email.svg" alt="email" title = "email"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>

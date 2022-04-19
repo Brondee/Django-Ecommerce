@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <section class = "product_main">
+        <div class = "user_form_container">
+            <form method = "POST" class = "create_user_form">
+                {% csrf_token %}
+                {{form}}
+                <button class = "btn_register" type = "submit">Регистрация</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

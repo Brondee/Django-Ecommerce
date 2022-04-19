@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+    <section class = "thanks_section">
+        <div class = "wrap thanks_wrap">
+            <div class = "thanks_container">
+                <img class = "thanks_title_img" src = "{% static 'img/Dawn.png' %}">
+                <h1 class = "thanks_title">Спасибо за</br> заказ!</h1>
+            </div>
+        </div>
+    </section>
+{% endblock %}

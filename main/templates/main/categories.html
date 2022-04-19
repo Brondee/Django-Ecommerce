@@ -1,0 +1,69 @@
+{% extends 'main/base.html' %}
+{% load static%}
+
+{% block title %}{{category}}{% endblock %}
+
+{% block content %}
+    <section class = "shop_main">
+        <div class = "wrap">
+            <h1 class = "shop_title">{{category}}</h1>
+            <div class = "products_container">
+                {% for product in products %}
+                    <a class = "product_shop" href = "/product/{{ product.id }}">
+                        <img src = "{{product.main_img.url}}" class = "shop_pr_img">
+                        <p class = "shop_pr_name">{{product.game_name}}</p>
+                        {% if product.available == True %}
+                            <div class = "prices_container">
+                                <p class = "price_shop">{{product.price_day}}</p>
+                                <p class = "price_shop">{{product.price_week}}</p>
+                            </div>
+                        {% elif product.available == False %}
+                        <div class = "prices_container rented_container">
+                            <p class = "price_shop">Арендована</p>
+                        </div>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+            <nav class = "pagination_container">
+                <ul class = "pagination">
+                    <!-- adds go to previous page btn and to the first page btn -->
+                    {% if products.has_previous %}
+                        <a href = "?page=1" class = "pagination_link pagination_double_arrow"><img src = "{% static 'icons/double-arrow-left.svg' %}"></a>
+                        <a href = "?page={{ products.previous_page_number }}" class = "pagination_link pagination_arrow_left"><img src = "{% static 'icons/arrow-left.svg' %}"></a>
+                    {% endif %}
+
+                    <!-- adds two previous pages -->
+                    {% if products.number|add:'-1' > 1 %}   
+                        <a href = "?page={{ products.number|add:"-2" }}" class = "pagination_link"><li class = "pagination_item">{{ products.number|add:"-2" }}</li></a>
+                        <a href = "?page={{ products.number|add:"-1" }}" class = "pagination_link"><li class = "pagination_item">{{ products.number|add:"-1" }}</li></a>
+                    
+                    <!-- adds one previous page if there is no more -->
+                    {% elif products.number|add:'-1' == 1 %}
+                        <a href = "?page={{ products.number|add:'-1' }}" class = "pagination_link"><li class = "pagination_item">{{ products.number|add:'-1' }}</li></a>
+                    {% endif %}
+
+                    <!-- adds current page -->
+                    <a href = "?page={{ products.number }}" class = "pagination_link pagination_link_active"><li class = "pagination_item">{{ products.number }}</li></a>
+                    
+                    <!-- adds two next pages -->
+                    {% if products.number|add:'1' < products.paginator.num_pages %}   
+                        {% for page in pages %}
+                            <a href = "?page={{ products.number|add:forloop.counter }}" class = "pagination_link"><li class = "pagination_item">{{ products.number|add:forloop.counter }}</li></a>
+                        {% endfor %}
+
+                    <!-- adds one next page if there is no more -->
+                    {% elif products.number|add:'1' == products.paginator.num_pages %}
+                        <a href = "?page={{ products.number|add:'1' }}" class = "pagination_link"><li class = "pagination_item">{{ products.number|add:'1' }}</li></a>
+                    {% endif %}
+
+                    <!-- adds go to next page btn and to the last page btn -->
+                    {% if products.has_next %}
+                        <a href = "?page={{ products.next_page_number }}" class = "pagination_link pagination_arrow_right"><img src = "{% static 'icons/arrow-right.svg' %}"></a>
+                        <a href = "?page={{ products.paginator.num_pages }}" class = "pagination_link pagination_double_arrow"><img src = "{% static 'icons/double-arrow-right.svg' %}"></a>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </section>
+{% endblock %}

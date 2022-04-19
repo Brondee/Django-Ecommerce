@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Профиль - {{ user.username }}{% endblock %}
+
+{% block content %}
+    <section class = "product_main">
+        <div class = "user_form_container user_profile_container">
+            <div class = "user_info">
+                <h1 class = "username_profile">{{ user.username }}</h1>
+                <h2>Данные:</h2>
+                <a class = "user_info_block" href = "/user/orders/">
+                    <p>Заказы: {{ user_orders }}</p>
+                </a>
+                <a class = "user_info_block" href = "/user/reviews/">
+                    <p>Отзывы: {{ user_comments }}</p>
+                </a>
+                <a class = "logout" href = "/logout">
+                    <p>Выйти</p>
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

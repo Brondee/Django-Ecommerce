@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Заказы{% endblock %}
+
+{% block content %}
+    <section class = "orders_section">
+        <div class = "wrap orders_wrap">
+            {% if nothing_is_ordered == False %}
+                <h1 class = "orders_title">Мои заказы:</h1>
+                <div class = "orders_container">
+                    {% for order in orders %}
+                        <div class = "order">
+                            <div class = "order_items_container">
+                                {% for order_game_name in order.order_game_names|split:"/" %}
+                                    {% for game in all_games %}
+                                        {% if game.game_name == order_game_name%}
+                                            <a class = "order_item" href = "/product/{{game.id}}">
+                                                <div class = "order_item_img_container">
+                                                    <img class = "order_item_img" src = "/{{ game.main_img }}">
+                                                </div>
+                                                <div class = "order_item_info_container">
+                                                    <p class = "order_item_name">{{ game.game_name  }}</p>
+                                                    <p class = "order_item_rental">{{ order.order_game_rentals|split:"/"|index:forloop.parentloop.counter0 }}</p>
+                                                    {% if order.order_game_rentals|split:"/"|index:forloop.parentloop.counter0 == "День" %}
+                                                        <p class = "order_item_price">{{ game.price_day }}</p>
+                                                    {% elif order.order_game_rentals|split:"/"|index:forloop.parentloop.counter0 == "Неделя" %}
+                                                        <p class = "order_item_price">{{ game.price_week }}</p>
+                                                    {% endif %}
+                                                </div>
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                            <div class = "pink_line_order"></div>
+                            <div class = "order_general_info_container">
+                                <p class = "order_info_header">Дата:</p>
+                                <p class = "order_info_piece">{{ order.date }}</p>
+                                <p class = "order_info_header">Метод получения заказа:</p>
+                                <p class = "order_info_piece">{{ order.get_method }}</p>
+                                <p class = "order_info_header">Метод оплаты:</p>
+                                <p class = "order_info_piece">{{ order.payment_method }}</p>
+                                <p class = "order_final_price">{{ order.total_price }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class = "load_more_container">
+                        <div class = "user_orders_load_more_btn">
+                            <p>Загрузить еще</p>
+                        </div>
+                    </div>
+                </div>
+            {% elif nothing_is_ordered == True%}
+                <h1 class = "nothing_is_ordered_title">Вы еще ничего не заказали</h1>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

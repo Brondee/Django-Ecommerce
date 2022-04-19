@@ -1,0 +1,114 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if is_empty == False %}
+            <section class = "cart_section">
+                <div class = "wrap cart_wrap">
+                    <div class = "cart_items_container">
+                        {% for game in games %}
+                            {% if game.available == True %}
+                                <div class = "cart_item">
+                            {% elif game.available == False %}
+                                <div class = "cart_item red_border">
+                            {% endif %}
+                                {% csrf_token %}
+                                <input class = "game_id" value = "{{ game.id }}" type = "hidden">
+                                <a class = "cart_img_container" href = "/product/{{ game.id }}">
+                                    <img class = "cart_img" src = "/{{ game.main_img }}">
+                                </a>
+                                <div class = "cart_item_info">
+                                    <a href = "/product/{{ game.id }}">
+                                        <p class = "cart_item_title">{{game.game_name}}</p>
+                                    </a>
+                                    {% if game.available == True %}
+                                        {% for cart_itm in cart %}
+                                            {% if game.id == cart_itm.game_id and cart_itm.rental_time == 7 %}
+                                                <p class = "cart_time">Неделя</p>
+                                            {% elif game.id == cart_itm.game_id and cart_itm.rental_time == 1%}
+                                                <p class = "cart_time">День</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% elif game.available == False %}
+                                        <p class = "cart_time cart_rented">Арендована!</p>
+                                    {% endif %}
+                                    <div class = "cart_price_container">
+                                        {% for cart_itm in cart %}
+                                            {% if game.id == cart_itm.game_id and cart_itm.rental_time == 7 %}
+                                                    <p class = "cart_item_price">{{ game.price_week }}</p>
+                                            {% elif game.id == cart_itm.game_id and cart_itm.rental_time == 1%}
+                                                    <p class = "cart_item_price">{{ game.price_day }}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% csrf_token %}
+                                        <input type = "hidden" class = "game_id_ajax" value = "{{ game.id }}">
+                                        <div class = "cart_item_delete cart_delete_js">
+                                            <p>Удалить</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class = "cart_buy_container">
+                        {% if all_available == True %}
+                            <form class = "cart_item_delete cart_buy_btn" method = "POST" action = "/cart/submit/">
+                                {% csrf_token %}
+                                <input type = "hidden" class = "total_price_post_send" name = "total_price" value = "{{ total_price }}">
+                                <input type = "hidden" class = "total_items_post_send" name = "total_items" value = "{{ items_total }}">
+                                <input type = "hidden" class = "cart_games_ids_post_send" name = "games_ids" value = "{{ games_ids }}">
+                                <button type = "submit">Оформить</button>
+                            </form>
+                        {% elif all_available == False %}
+                            <p class = "cart_rented_warning">Одна или несколько игр в корзине уже арендованы</p>
+                        {% endif %}
+                        <div class = "cart_general_info">
+                            <div class = "cart_general_items_">
+                                <p class = "cart_title">Корзина</p>
+                                <p class = "cart_items_total">Товаров: <span class = "total_items_js">{{ items_total }}</span></p>
+                            </div>
+                            <div class = "hr_line"></div>
+                            <div class = "cart_total_price_cont">
+                                <p class = "cart_total_title">Общая сумма:</p>
+                                <p class = "cart_total_price">{{ total_price }}₽</p>
+                            </div>
+                        </div>
+                    </div>
+        {% elif is_empty == True %}
+            <section class = "product_main">
+                <div class = "wrap cart_wrap">
+                    <div class = "cart_empty_container">
+                        <div class = "user_form_container cart_empty">
+                            <div class = "cart_empty_items_container">
+                                <h1 class = "cart_empty_title">Корзина</br>пуста</h1>
+                                <a class = "cart_item_delete cart_empty_btn" href = "/shop/">
+                                    <p>Магазин</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% else %}
+        <section class = "product_main">
+            <div class = "wrap cart_wrap">
+                <div class = "cart_empty_container">
+                    <div class = "user_form_container cart_empty">
+                        <div class = "cart_empty_items_container">
+                            <h1 class = "cart_empty_title cart_user_not_auth">Требуется<br> вход в <br>аккаунт</h1>
+                            <a class = "cart_item_delete cart_empty_btn" href = "/login/">
+                                <p>Войти</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+        </div>
+    </section>
+{% endblock %}

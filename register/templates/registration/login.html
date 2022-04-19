@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <section class = "product_main">
+        <div class = "user_form_container login_container">
+            <form method = "POST" class = "create_user_form">
+                {% csrf_token %}
+                {{form}}
+                <button class = "btn_register btn_login" type = "submit">Войти</button>
+                <p class = "register_reminder">Нет аккаунта? <a class = "register_inside_text" href = "/register">Зарегистрируйтесь!</a></p>
+            </form>
+        </div>
+    </section>
+{% endblock %}

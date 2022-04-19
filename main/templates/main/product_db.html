@@ -1,0 +1,158 @@
+{% extends 'main/base.html' %}
+{% load static%}
+
+{% block title %}{{ game.game_name }}{% endblock %}
+
+{% block content %}
+    <section class = "product_main">
+        <div class = "prod_wrap">
+            <div class = "slider_image_block">
+                <div class = "slider_img_block">
+                    <div class = "slider_item slider_item_active">
+                        <img src = "{{game.main_img.url}}" class = "slider_img">
+                    </div>
+                    <div class = "slider_item">
+                        <img src = "{{game.second_img.url}}" class = "slider_img">
+                    </div>
+                    <div class = "slider_item">
+                        <img src = "{{game.third_img.url}}" class = "slider_img">
+                    </div>
+                </div>
+                <div class = "prod_image_block">
+                    <a href="{{game.main_img.url}}" class = "img_link">
+                        <img src = "{{game.main_img.url}}" class = "product_img">
+                    </a>
+                </div>
+            </div>
+            <div class = "prod_info">
+                <div class = "prod_name_block">
+                    <h1 class = "prod_name">{{game.game_name}}</h1>
+                    <div class = "prod_short_info_block">
+                        <div class = "prod_short_info">
+                            <img src = "{% static 'icons/people.svg'%}" class = "prod_icon">
+                            <p class = "prod_short_text">{{game.gamers_count}}</p>
+                        </div>
+                        <div class = "prod_short_info">
+                            <img src = "{% static 'icons/clock.svg'%}" class = "prod_icon">
+                            <p class = "prod_short_text">{{game.game_time}}</p>
+                        </div>
+                        <div class = "prod_short_info">
+                            <img src = "{% static 'icons/kid.svg'%}" class = "prod_icon">
+                            <p class = "prod_short_text">{{game.game_year}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "prod_order_block">
+                        {% csrf_token %}
+                        <input type = "hidden" value = "{{ game.id }}" class = "product_id">
+                        <div class = "order_block">
+                            <p class = "order_price">{{game.price_day}}</p>
+                            <p class = "order_text">на день</p>
+                            {% if in_cart == True and rental_time == 1 or in_cart == True and rental_time == 7 %}
+                                <div class = "order_button add_cart_day add_cart_inactive">
+                                    <p>В корзине</p>
+                                </div>
+                            {% elif game.available == True and user.is_authenticated%}
+                                <div class = "order_button add_cart_day">
+                                    <p>В корзину</p>
+                                </div>
+                            {% elif game.available == True %}
+                                <a class = "order_button" href = "/login/">
+                                    <p>В корзину</p>
+                                </a>
+                            {% elif game.available == False %}
+                                <div class = "order_button add_cart_inactive">
+                                    <p>Арендована</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class = "order_block">
+                            <p class = "order_price">{{game.price_week}}</p>
+                            <p class = "order_text">на неделю</p>
+                            {% if in_cart == True and rental_time == 7 %}
+                                <div class = "order_button add_cart_week add_cart_inactive">
+                                    <p>В корзине</p>
+                                </div>
+                            {% elif game.available == True and user.is_authenticated%}
+                                <div class = "order_button add_cart_week">
+                                    <p>В корзину</p>
+                                </div>
+                            {% elif game.available == True %}
+                                <a class = "order_button" href = "/login/">
+                                    <p>В корзину</p>
+                                </a>
+                            {% elif game.available == False %}
+                                <div class = "order_button add_cart_inactive">
+                                    <p>Арендована</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                </div>
+                <div class = "categories_block">
+                    {% for item in cat%}
+                        <a href = "/shop/categories/{{item}}">
+                            <div class = "category">
+                                <p>{{item}}</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class = "description">
+        <div class = "prod_wrap desc_wrap">
+            <div class = "desc_block">
+                <h2 class = "desc_title">Описание</h2>
+                <p class = "desc_text">{{game.description|linebreaksbr}}</p>
+            </div>
+            <div class = "other_games">
+                <h3 class = "other_title">Другие игры</h3>
+                <div class = "other_block">
+                    {% for game in other %}
+                        <a class = "other_game" href = "/product/{{game.id}}">
+                            <img src = "{{ game.main_img.url}}" class = "other_img">
+                            <p class = "other_name">{{game.game_name}}</p>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class = "reviews">
+        <div class = "prod_wrap rev_wrap">
+            <h2 class = "reviews_title">Отзывы</h2>
+            <div class = "reviews_container">
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div class = "review">
+                            <div class = "rev_avatar_name">
+                                <img class = "rev_avatar" src = "{% static 'img/avatar2.png' %}">
+                                <p class = "rev_name">{{ comment.username }}</p>
+                                <p class = "rev_date">{{ comment.date }}</p>
+                            </div>
+                            <p class = "rev_text">{{ comment.text }}</p>
+                        </div>
+                    {% endfor %}
+                    <div class = "load_more_container">
+                        <div class = "load_more_btn">
+                            <p>Загрузить еще</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <h2 class = "send_rev_title">Отзывов еще нет :(</h2>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <h2 class = "send_rev_title">Свой отзыв</h2>
+                    <form class = "review_form" method = "POST" action = "/product/{{game.id}}">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button class = "send_rev" type = "submit" name = "send">Оставить отзыв</button>
+                    </form>
+                {% else %}
+                    <h3 class = "login_ask"><a href = "/login" class = "login_text_inside">Войдите</a>, чтобы оставить отзыв</h3>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock%}

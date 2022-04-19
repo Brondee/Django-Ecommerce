@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+{% load static%}
+
+{% block title %}Подтверждение заказа - Borent{% endblock %}
+
+{% block content %}
+    <section class = "cart_section">
+        <div class = "wrap cart_wrap">
+            <div class = "cart_submit_options_container">
+                <p class = "submit_сart_title">Метод получения:</p>
+                <p class = "submit_cart_warning choose_delivery_method_warning hidden">Выберите метод получения заказа!</p>
+                <div class = "submit_method_btns_container">
+                    <div class = "submit_choose_method_btn pickup_btn submit_choose_method_btn_active">
+                        <p>Самовывоз</p>
+                    </div>
+                    <div class = "submit_choose_method_btn delivery_btn">
+                        <p>Доставка</p>
+                    </div>
+                </div>
+                <p class = "submit_сart_title ">Адрес:</p>
+                <div class = "delivery_fields_container hidden">    
+                    <p class = "submit_cart_warning">Доставка только по Краснодару! Оплачивается отдельно в чате с продавцом!</p>
+                    <p class = "submit_cart_warning adress_is_empty_warning hidden">Введите адрес доставки</p>
+                    <input class = "user_adress_input" placeholder = "Введите адрес доставки">
+                    
+                </div>
+                <div class = "pickup_fields_container">
+                    <p class = "pickup_adress">Самовывоз по адресу: ул. М.Горького, 43, к. 1, Краснодар</p>
+                    <p class = "submit_cart_warning">Время получения заказа обсуждается с продавцом</p>
+                </div>
+                <p class = "submit_сart_title">Метод оплаты:</p>
+                <p class = "submit_cart_warning cash_warning hidden">Оплата наличными только при самовывозе!</p>
+                <p class = "submit_cart_warning choose_pay_method_warning hidden">Выберите метод оплаты!</p>
+                <div class = "submit_method_btns_container">
+                    <div class = "submit_choose_method_btn cash_btn">
+                        <p>Наличные</p>
+                    </div>
+                    <div class = "submit_choose_method_btn card_btn">
+                        <p>Карта</p>
+                    </div>
+                </div>
+            </div>
+            <div class = "cart_submit_info_container">
+                <div class = "cart_item_delete cart_buy_btn" >
+                    {% csrf_token %}
+                    <p type = "submit">Подтвердить</p>
+                    <input class = "games_ids" type = "hidden" value = "{{games_ids}}">
+                </div>
+                <div class = "cart_general_info">
+                    <div class = "cart_general_items_">
+                        <p class = "cart_title">Информация</p>
+                        <p class = "cart_items_total">Товаров: <span class = "total_items_js">{{ total_items }}</span></p>
+                        <p class = "cart_items_total">Метод оплаты: <span class = "payment_method_js"></span></p>
+                        <p class = "cart_items_total">Метод получения: <span class = "delivery_method_js"> Самовывоз</span></p>
+                    </div>
+                    <div class = "hr_line"></div>
+                    <div class = "cart_total_price_cont">
+                        <p class = "cart_total_title">Общая сумма:</p>
+                        <p class = "cart_total_price cart_submit_total_price">{{ total_price }}₽</p>
+                        <p class = "submit_cart_warning delivery_warning hidden">(доставка оплачивается в чате с продавцом)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

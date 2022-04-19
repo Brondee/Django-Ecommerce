@@ -1,0 +1,87 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'magnific-popup/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'js/slick/slick.css' %}">
+        <link rel="stylesheet" href="{% static 'js/slick/slick-theme.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Borent{% endblock %}</title>
+    </head>
+</html>
+<body>
+    <div class = "menu">
+        <a class = "logo_name" href = "/">
+            <img src = "{% static 'img/logo.png' %}" class = "logo">
+            <p class = "borent_name" >Borent</p>
+        </a>
+        <div class = "menu_links">
+            <a class = "menu_link" href = "/shop">Магазин</a>
+            {% if user.is_authenticated %}
+                <a class = "menu_link" href = "/user/profile">Профиль</a>
+            {% else %}
+                <a class = "menu_link" href = "/login">Вход</a>
+            {% endif %}
+            <a class = "menu_link" href = "/cart">Корзина</a>
+            <form class = "search_header" method = "GET" action = "/search/">
+                <button class = "search_submit" type = "submit"><img src = "{% static "icons/search.svg" %}"></button>
+                <input class = "search_input" placeholder = "Введите запрос" name = "q">
+            </form>
+            <a class = "search_deactivator" href = "#"><img src = "{% static "icons/cross.svg" %}"></a>
+            <p class = "menu_link search_activator">Поиск</p>
+        </div>
+    </div>
+    <div class = "menu_mobile">
+        <a class = "logo_name" href = "/">
+            <img src = "{% static 'img/logo.png' %}" class = "logo">
+            <p class = "borent_name">Borent</p>
+        </a>
+        <form class = "search_header" method = "GET" action = "/search/">
+            <button class = "search_submit" type = "submit"><img src = "{% static "icons/search.svg" %}"></button>
+            <input class = "search_input" placeholder = "Введите запрос" name = "q">
+        </form>
+        <a class = "search_deactivator_mobile" href = "#"><img src = "{% static "icons/cross.svg" %}"></a>
+        <div class = "menu_functions">
+            <img class = "search_activator_mobile" src = "{% static "icons/search.svg" %}">
+            <!--<img class = "burger_menu_icon" src = "{% static "icons/burger_menu.svg" %}">-->
+            <div class="burger_menu_icon">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <div class = "burger_menu">
+        <div class = "burger_menu_links">
+            <a class = "burger_menu_link" href = "/">Домой</a>
+            <a class = "burger_menu_link" href = "/shop/">Магазин</a>
+            <a class = "burger_menu_link" href = "/cart/">Корзина</a>
+            <a class = "burger_menu_link" href = "/user/profile/">Профиль</a>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+    <div class = "footer">
+        <div class = "footer_inner">
+            <a class = "logo_name" href = "/">
+                <img src = "{% static 'img/logo.png' %}" class = "logo">
+                <p class = "borent_name" >Borent</p>
+            </a>
+            <div class = "footer_media">
+                <img class = "media_img" src = "{% static 'icons/telegram.svg' %}">
+                <img class = "media_img" src = "{% static 'icons/vk.svg' %}">
+                <img class = "media_img" src = "{% static 'icons/instagram.svg' %}">
+                <img class = "media_img" src = "{% static 'icons/email.svg' %}">
+            </div>
+            <div class = "footer_links">
+                <a class = "menu_link" href = "#">Вход</a>
+                <a class = "menu_link" href = "#">Поиск</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type = "text/javascript" src = "{% static 'magnific-popup/jquery.magnific-popup.js' %}"></script>
+    <script type = "text/javascript" src = "{% static 'js/slick/slick.min.js' %}"></script>
+    <script type = "text/javascript" src = "{% static 'js/script.js' %}"></script>
+</body>

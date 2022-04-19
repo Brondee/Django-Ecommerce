@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Магазин{% endblock %}
+
+{% block content %}
+    <section class = "product_main">
+        <div class = "user_form_container user_profile_container">
+            <div class = "user_info">
+                <h1 class = "username_profile">{{user.username}}</h1>
+                <h2>Данные:</h2>
+                <a class = "user_info_block" href = "/">
+                    <p>Заказов: 5</p>
+                </a>
+                <a class = "user_info_block" href = "/">
+                    <p>Отзывов: {{user_comments}}</p>
+                </a>
+                <a class = "logout" href = "/logout">
+                    <p>Выйти</p>
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

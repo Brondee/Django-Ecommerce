@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Borent{% endblock %}
+
+{% block content %}
+    <section class = "main_view">
+        <div class = "wrap home_wrap">
+            <div class = "wel_block">
+                <div class = "comp_about">
+                    <h1 class = "comp_name">Borent</h1>
+                    <p class = "comp_desc">Новый сервис аренды ваших любимых настолок</p>
+                    <a href = "/product" class = "comp_link">
+                        <a class = "comp_btn_block" href = "/shop/">
+                            <p class = "comp_btn">Купить</p>
+                        </a>
+                    </a>
+                </div>
+                <img src="{% static 'img/main_image_pink.png' %}" class = "main_img">
+            </div>
+        </div> 
+    </section>
+{% endblock %}
